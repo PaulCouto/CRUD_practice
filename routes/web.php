@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\CategoryController;
 
 
 /*
@@ -20,5 +21,6 @@ Route::get('/', function () {
 });
 
 Route::resources([
-    '/notes'    =>  NoteController::class
+    '/notes'    =>  NoteController::class,
+    '/categories'   =>  CategoryController::class,
 ]);
