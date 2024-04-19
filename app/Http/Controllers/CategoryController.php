@@ -31,7 +31,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         Category::create([
-            'category' =>  $request->category,
+            'Category_name' =>  $request->Category_name,
         ]);
 
         // return to_route('categories.index');
@@ -53,7 +53,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         return view('categories.edit')
-            ->with('category', Category::nota_por_id($id));
+            ->with('category', Category::categoria_por_id($id));
     }
 
     /**

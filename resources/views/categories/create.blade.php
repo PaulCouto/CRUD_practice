@@ -26,7 +26,7 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="" class="form-label">Categoria</label>
+                        <label for="" class="form-label">Categoría</label>
                         <input type="text" name="Category_name" class="form-control">
                     </div>
 

@@ -14,7 +14,7 @@
         <div class="row mb-4">
             <div class="col">
                 <header class="bg-danger py-3 text-center">
-                    <h1 class="mb-0 text-white">{{ $category->title }}</h1>
+                    <h1 class="mb-0 text-white">{{ $category->Category_name }}</h1>
                 </header>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <p style="white-space: pre-wrap;">{{ $category->content }}</p>
 
                 <div class="text-end">
-                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Editar Categoria</a>
+                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Editar Categoría</a>
                 </div>
             </div>
         </div>

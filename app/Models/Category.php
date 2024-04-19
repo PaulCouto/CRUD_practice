@@ -10,7 +10,7 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category', 'active'
+        'Category_name', 'active'
     ];
 
     // protected $guarded = [];
@@ -20,7 +20,7 @@ class Category extends Model
     }
 
     static function categoria_por_id($id){
-        return Model::where('id', $id)
+        return Category::where('id', $id)
             ->where('active', true)
             ->firstOrFail();
     }

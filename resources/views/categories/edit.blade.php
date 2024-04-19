@@ -22,22 +22,17 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 
-                <form action="{{ route('notes.update', $note->id) }}" method="post">
+                <form action="{{ route('categories.update', $category->id) }}" method="post">
                     @csrf
                     @method('put')
 
                     <div class="mb-3">
-                        <label for="" class="form-label">Título</label>
-                        <input type="text" name="title" class="form-control" value="{{ $note->title }}">
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="" class="form-label">Contenido</label>
-                        <textarea name="content" rows="10" class="form-control">{{ $note->content }}</textarea>
+                        <label for="" class="form-label">Categoría</label>
+                        <input type="text" name="Category_name" class="form-control" value="{{ $category->Category_name }}">
                     </div>
 
                     <div class="text-end">
-                        <input type="submit" value="Editar Nota" class="btn btn-warning">
+                        <input type="submit" value="Editar Categoría" class="btn btn-warning">
                     </div>
 
                 </form>
