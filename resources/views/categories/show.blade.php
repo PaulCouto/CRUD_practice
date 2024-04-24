@@ -34,6 +34,13 @@
 
                 <div class="text-end">
                     <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Editar Categoría</a>
+
+                    <form action="{{ route('categories.destroy', $category->id) }}" method="post">
+                        @csrf
+                        @method('delete')
+
+                        <input type="submit" value="Eliminar Nota" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminarla?')">
+                    </form>
                 </div>
             </div>
         </div>

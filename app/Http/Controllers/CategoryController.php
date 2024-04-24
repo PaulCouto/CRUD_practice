@@ -35,7 +35,8 @@ class CategoryController extends Controller
         ]);
 
         // return to_route('categories.index');
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')
+            ->with('success', 'Categoría creada exitosamente.');
     }
 
     /**
@@ -61,7 +62,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::categoria_por_id($id);
+
+        $category->update([
+            'Category_name' =>  $request->Category_name,
+        ]);
+
+        return redirect()->route('categories.show', $id);
     }
 
     /**
@@ -69,6 +76,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::categoria_por_id($id);
+
+        // $note->delete();
+        $category->update([
+            'active'     =>  false,
+        ]);
+
+        return redirect()->route('categories.index');
     }
 }
