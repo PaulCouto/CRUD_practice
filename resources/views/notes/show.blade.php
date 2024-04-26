@@ -24,7 +24,7 @@
                 <table class="table mb-4">
                     <tbody>
                         <tr>
-                            <td><b>Category:</b> {{ $note->category_id }}</td>
+                            <td><b>Category:</b> {{ $note->category->Category_name }}</td>
                             <td><b>Created at:</b> {{ $note->created_at->diffForHumans() }}</td>
                             <td><b>Updated at:</b> {{ $note->updated_at }}</td>
                         </tr>
