@@ -45,8 +45,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category) // Assuming route binding is set up
     {
-        $notes = $category->notes()->paginate(10); // Or desired number of notes per page
-
+        $notes = $category->notes()->get(); // Fetch associated notes
         return view('categories.show', compact('category', 'notes'));
     }
 

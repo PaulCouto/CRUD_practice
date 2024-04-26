@@ -42,6 +42,19 @@
                         <input type="submit" value="Eliminar Nota" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminarla?')">
                     </form>
                 </div>
+                <h2>Notas en esta categoría</h2>
+
+                @if (count($notes) > 0)
+                    <ul class="list-group">
+                        @foreach ($notes as $note)
+                            <li class="list-group-item">
+                                <a href="{{ route('notes.show', $note->id) }}">{{ $note->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p>No hay notas asociadas a esta categoría.</p>
+                @endif
             </div>
         </div>
     </div>
