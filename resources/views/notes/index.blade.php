@@ -42,6 +42,7 @@
                         <tr>
                             <th>id</th>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Content</th>
                             <th>Actions</th>
                         </tr>
@@ -49,10 +50,11 @@
 
                     <tbody>
 
-                        @forelse($notes as $note)
+                        @forelse($notes as $note )
                             <tr>
                                 <td>{{ $note->id }}</td>
                                 <td>{{ $note->title }}</td>
+                                <td>{{ $note->category->Category_name }}</td>
                                 <td>{{ $note->content }}</td>
                                 <td>
                                     <a href="{{ route('notes.show', $note->id) }}" class="btn btn-secondary">Ver</a>

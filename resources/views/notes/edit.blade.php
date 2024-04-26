@@ -22,25 +22,31 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 
-                <form action="{{ route('notes.update', $note->id) }}" method="post">
-                    @csrf
-                    @method('put')
+            <form action="{{ route('notes.update', $note->id) }}" method="post">
+                @csrf
+                @method('put')
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Título</label>
-                        <input type="text" name="title" class="form-control" value="{{ $note->title }}">
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="" class="form-label">Contenido</label>
-                        <textarea name="content" rows="10" class="form-control">{{ $note->content }}</textarea>
-                    </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Título</label>
+                    <input type="text" name="title" class="form-control" value="{{ $note->title }}">
+                </div>
 
-                    <div class="text-end">
-                        <input type="submit" value="Editar Nota" class="btn btn-warning">
-                    </div>
+                <select name="category_id" id="category_id" class="form-select" aria-label="Default select example" required>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->Category_name }}</option>
+                    @endforeach
+                </select>
 
-                </form>
+                <div class="mb-3">
+                    <label for="" class="form-label">Contenido</label>
+                    <textarea name="content" rows="10" class="form-control">{{ $note->content }}</textarea>
+                </div>
+
+                <div class="text-end">
+                    <input type="submit" value="Editar Nota" class="btn btn-warning">
+                </div>
+
+            </form>
 
             </div>
         </div>

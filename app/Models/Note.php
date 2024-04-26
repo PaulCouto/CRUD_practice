@@ -10,7 +10,7 @@ class Note extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'content', 'active'
+        'title', 'content', 'category_id', 'active'
     ];
 
     // protected $guarded = [];
@@ -23,5 +23,15 @@ class Note extends Model
         return Note::where('id', $id)
             ->where('active', true)
             ->firstOrFail();
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'note_categories');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class); 
     }
 }

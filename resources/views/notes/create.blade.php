@@ -26,13 +26,22 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="" class="form-label">Título</label>
-                        <input type="text" name="title" class="form-control">
+                        <label for="title" class="form-label">Título</label>
+                        <input type="text" name="title" class="form-control" id="title">
                     </div>
                     
                     <div class="mb-3">
-                        <label for="" class="form-label">Contenido</label>
-                        <textarea name="content" rows="10" class="form-control"></textarea>
+                        <label for="category_id" class="form-label">Categoría</label>
+                        <select name="category_id" id="category_id" class="form-select" aria-label="Default select example" required>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->Category_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Contenido</label>
+                        <textarea name="content" rows="10" class="form-control" id="content"></textarea>
                     </div>
 
                     <div class="text-end">

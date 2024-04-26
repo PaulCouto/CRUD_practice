@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Note;
+use App\Models\Category;
 
 class NoteController extends Controller
 {
@@ -14,8 +15,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::todas_las_notas();
-        // dd($notes);
+        $notes = Note::with('category')->get(); // Eager load the category relationship
         return view('notes.index', compact('notes'));
     }
 
@@ -26,7 +26,9 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view('notes.create');
+        $categories = Category::where('active', true)->get(); // Fetch all categories
+
+        return view('notes.create', compact('categories'));
     }
 
     /**
@@ -37,12 +39,12 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        Note::create([
-            'title' =>  $request->title,
-            'content'   =>  $request->content
+        $note = Note::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'category_id' => $request->category_id, // Set category_id directly
         ]);
 
-        // return to_route('notes.index');
         return redirect()->route('notes.index')
             ->with('success', 'Nota creada exitosamente.');
     }
@@ -50,57 +52,56 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Note $note
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Note $note) // Use route model binding for Note
     {
-        return view('notes.show')
-            ->with('note', Note::nota_por_id($id));
+        return view('notes.show', compact('note'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Note $note
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Note $note) // Use route model binding for Note
     {
-        return view('notes.edit')
-            ->with('note', Note::nota_por_id($id));
+        $categories = Category::all(); // Fetch all categories
+
+        return view('notes.edit', compact('note', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Note $note
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Note $note)
     {
-        $note = Note::nota_por_id($id);
-
         $note->update([
             'title'     =>  $request->title,
-            'content'   =>  $request->content
+            'content'   =>  $request->content,
+            'category_id' => $request->category_id
         ]);
 
-        return redirect()->route('notes.show', $id);
+        $note->categories()->detach(); // Detach all existing categories
+        $note->categories()->attach($request->category_id);
+
+        return redirect()->route('notes.show', $note->id);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage (soft delete).
      *
-     * @param  int  $id
+     * @param  Note $note
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Note $note)
     {
-        $note = Note::nota_por_id($id);
-
-        // $note->delete();
         $note->update([
             'active'     =>  false,
         ]);

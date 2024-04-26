@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Note;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::todas_las_categorias();
-        // dd($categries);
+        // dd($categories);
         return view('categories.index', compact('categories'));
     }
 
@@ -42,10 +43,11 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category) // Assuming route binding is set up
     {
-        return view('categories.show')
-            ->with('category', Category::categoria_por_id($id));
+        $notes = $category->notes()->paginate(10); // Or desired number of notes per page
+
+        return view('categories.show', compact('category', 'notes'));
     }
 
     /**

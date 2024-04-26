@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->longText('content');
+            $table->foreignId('category_id')->references('id')->on('categories');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });
